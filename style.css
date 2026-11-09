@@ -1,0 +1,702 @@
+:root {
+  --black: #130e0b;
+  --wine: #762e2c;
+  --gold: #c99b60;
+  --cream: #f4e9d8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--black);
+  color: var(--cream);
+  font-family: "Montserrat", sans-serif;
+}
+
+/* =========================
+   FONDO DE PARRILLA
+========================= */
+
+.background {
+  position: fixed;
+  inset: -2%;
+  background:
+    url("https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=2200&q=90")
+    center 55% / cover no-repeat;
+  transform: scale(1.08);
+  animation: backgroundMove 18s ease-in-out infinite alternate;
+  transition: background-position .3s ease-out;
+}
+
+.dark-overlay {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(20,10,6,.35),
+      rgba(10,6,4,.88)
+    ),
+    linear-gradient(
+      90deg,
+      rgba(10,6,4,.65),
+      rgba(10,6,4,.25),
+      rgba(10,6,4,.65)
+    );
+}
+
+/* =========================
+   HUMO
+========================= */
+
+.smoke-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: .35;
+}
+
+.smoke-layer::before,
+.smoke-layer::after {
+  content: "";
+  position: absolute;
+  width: 120%;
+  height: 80%;
+  left: -10%;
+  bottom: -15%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(210,190,170,.12),
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse at 70% 60%,
+      rgba(180,160,145,.10),
+      transparent 60%
+    );
+
+  filter: blur(45px);
+  animation: smokeMove 14s ease-in-out infinite alternate;
+}
+
+.smoke-layer::after {
+  animation-delay: -7s;
+  animation-duration: 19s;
+  opacity: .7;
+  transform: scale(1.2);
+}
+
+/* =========================
+   RESPLANDOR DEL FUEGO
+========================= */
+
+.fire-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 105%,
+      rgba(255,80,15,.32),
+      rgba(180,40,10,.12) 30%,
+      transparent 65%
+    );
+
+  mix-blend-mode: screen;
+  animation: fireGlow 3s ease-in-out infinite alternate;
+}
+
+/* =========================
+   BRASAS Y CHISPAS
+========================= */
+
+.embers {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.embers span {
+  position: absolute;
+  bottom: -15px;
+
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+
+  background: #ffad52;
+  box-shadow: 0 0 12px 3px rgba(255,119,35,.7);
+
+  animation: emberDance 6s linear infinite;
+}
+
+.embers span:nth-child(1) { left: 5%; animation-delay: 0s; }
+.embers span:nth-child(2) { left: 13%; animation-delay: 2s; }
+.embers span:nth-child(3) { left: 22%; animation-delay: 4s; }
+.embers span:nth-child(4) { left: 31%; animation-delay: 1s; }
+.embers span:nth-child(5) { left: 40%; animation-delay: 3s; }
+.embers span:nth-child(6) { left: 50%; animation-delay: 5s; }
+.embers span:nth-child(7) { left: 60%; animation-delay: 2s; }
+.embers span:nth-child(8) { left: 69%; animation-delay: 4s; }
+.embers span:nth-child(9) { left: 78%; animation-delay: 1s; }
+.embers span:nth-child(10) { left: 86%; animation-delay: 3s; }
+.embers span:nth-child(11) { left: 93%; animation-delay: 5s; }
+.embers span:nth-child(12) { left: 98%; animation-delay: 2s; }
+.embers span:nth-child(13) { left: 17%; animation-delay: 1.5s; }
+.embers span:nth-child(14) { left: 37%; animation-delay: 3.5s; }
+.embers span:nth-child(15) { left: 57%; animation-delay: 2.5s; }
+.embers span:nth-child(16) { left: 73%; animation-delay: 4.5s; }
+.embers span:nth-child(17) { left: 82%; animation-delay: 1.8s; }
+.embers span:nth-child(18) { left: 45%; animation-delay: 5.5s; }
+
+.embers span:nth-child(3n) {
+  width: 7px;
+  height: 7px;
+  animation-duration: 8s;
+}
+
+.embers span:nth-child(2n) {
+  animation-duration: 5s;
+}
+
+/* =========================
+   PANTALLA
+========================= */
+
+.screen {
+  position: relative;
+  z-index: 2;
+
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px 20px;
+}
+
+/* =========================
+   TARJETA
+========================= */
+
+.login-card {
+  width: min(100%, 440px);
+  padding: 48px 48px 35px;
+
+  text-align: center;
+
+  background: rgba(20,14,11,.82);
+  border: 1px solid rgba(201,155,96,.42);
+
+  backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 30px 100px rgba(0,0,0,.55),
+    0 0 60px rgba(118,46,44,.12),
+    inset 0 0 30px rgba(255,255,255,.015);
+
+  opacity: 0;
+  transform: translateY(35px) scale(.97);
+
+  transition:
+    opacity 1s ease,
+    transform 1s ease;
+}
+
+.loaded .login-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: cardFloat 6s ease-in-out 1s infinite;
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.logo {
+  width: 75px;
+  height: 75px;
+  margin: 0 auto 18px;
+
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+
+  display: grid;
+  place-items: center;
+
+  position: relative;
+  animation: logoGlow 3s ease-in-out infinite;
+  transition: transform .4s ease;
+}
+
+.logo::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(201,155,96,.3);
+  border-radius: 50%;
+}
+
+.logo span {
+  color: var(--gold);
+  font: 600 34px "Cormorant Garamond", serif;
+}
+
+.logo:hover {
+  transform: rotate(8deg) scale(1.08);
+}
+
+.brand-label {
+  color: var(--gold);
+  font-size: 9px;
+  letter-spacing: 7px;
+  margin-bottom: 2px;
+}
+
+h1 {
+  font: 600 55px/.95 "Cormorant Garamond", serif;
+  letter-spacing: 5px;
+}
+
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  margin: 19px 0 12px;
+}
+
+.ornament span {
+  width: 45px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.ornament i {
+  color: var(--gold);
+  font-style: normal;
+  font-size: 12px;
+}
+
+.subtitle {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #d6c2a7;
+}
+
+.separator {
+  width: 35px;
+  height: 2px;
+  background: var(--wine);
+  margin: 30px auto;
+}
+
+.welcome {
+  font: 500 32px/1.05 "Cormorant Garamond", serif;
+  margin-bottom: 13px;
+}
+
+.description {
+  color: #b6a89b;
+  font-size: 11px;
+  line-height: 1.9;
+  font-weight: 300;
+  margin-bottom: 30px;
+}
+
+/* =========================
+   FORMULARIO
+========================= */
+
+form {
+  text-align: left;
+}
+
+label {
+  display: block;
+  color: var(--gold);
+  font-size: 9px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.input-container {
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+
+  border: 1px solid rgba(201,155,96,.4);
+  background: rgba(255,255,255,.035);
+
+  padding: 0 16px;
+
+  transition: .35s;
+}
+
+.input-container:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(201,155,96,.12);
+  background: rgba(255,255,255,.06);
+}
+
+.mail-icon {
+  color: var(--gold);
+  font-size: 17px;
+  margin-right: 13px;
+}
+
+input {
+  width: 100%;
+  height: 100%;
+
+  border: none;
+  outline: none;
+
+  color: white;
+  background: transparent;
+
+  font-size: 12px;
+  font-family: "Montserrat", sans-serif;
+}
+
+input::placeholder {
+  color: #81766d;
+}
+
+/* =========================
+   BOTÓN
+========================= */
+
+form button {
+  margin-top: 15px;
+  width: 100%;
+  height: 56px;
+
+  border: 1px solid var(--gold);
+  background: var(--wine);
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 17px;
+
+  cursor: pointer;
+
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2px;
+
+  transition: .4s;
+  position: relative;
+  overflow: hidden;
+
+  animation: buttonGlow 3s ease-in-out infinite;
+}
+
+form button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -110%;
+  width: 100%;
+  height: 100%;
+
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255,255,255,.2),
+    transparent
+  );
+
+  transition: .6s;
+}
+
+form button:hover::before {
+  left: 110%;
+}
+
+form button:hover {
+  background: var(--gold);
+  color: var(--black);
+  box-shadow: 0 8px 30px rgba(201,155,96,.2);
+  transform: translateY(-3px);
+}
+
+.arrow {
+  font-size: 17px;
+}
+
+form button:disabled {
+  opacity: .6;
+  cursor: wait;
+  transform: none;
+}
+
+.message {
+  min-height: 20px;
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--gold);
+  text-align: center;
+}
+
+/* =========================
+   DETALLES INFERIORES
+========================= */
+
+.bottom-text {
+  margin-top: 29px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #988879;
+}
+
+.bottom-text i {
+  font-style: normal;
+  color: var(--gold);
+}
+
+.side-caption {
+  position: absolute;
+  left: 45px;
+  bottom: 45px;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  color: #c1ad96;
+  font-size: 8px;
+  letter-spacing: 3px;
+}
+
+.side-caption span:first-child {
+  color: var(--gold);
+}
+
+.side-caption div {
+  width: 45px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.copyright {
+  position: absolute;
+  right: 45px;
+  bottom: 45px;
+
+  color: #b2a08d;
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+
+/* =========================
+   ANIMACIONES
+========================= */
+
+@keyframes backgroundMove {
+  from {
+    transform: scale(1.08) translateX(-1%);
+  }
+  to {
+    transform: scale(1.16) translateX(1%);
+  }
+}
+
+@keyframes smokeMove {
+  from {
+    transform: translate(-3%, 8%) scale(.9) rotate(-3deg);
+  }
+  to {
+    transform: translate(4%, -12%) scale(1.2) rotate(4deg);
+  }
+}
+
+@keyframes fireGlow {
+  from {
+    opacity: .55;
+    filter: brightness(.8);
+  }
+  to {
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+}
+
+@keyframes emberDance {
+  0% {
+    transform: translate(0, 20px) scale(.4);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(25px, -45vh) scale(1);
+    opacity: .9;
+  }
+  100% {
+    transform: translate(-20px, -105vh) scale(.2);
+    opacity: 0;
+  }
+}
+
+@keyframes logoGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(201,155,96,.05);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(201,155,96,.22);
+  }
+}
+
+@keyframes cardFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes buttonGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(201,155,96,0);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(201,155,96,.18);
+  }
+}
+
+/* Entrada animada de los elementos */
+
+.loaded .brand-label {
+  animation: fadeUp .8s .2s both;
+}
+
+.loaded h1 {
+  animation: fadeUp 1s .35s both;
+}
+
+.loaded .welcome {
+  animation: fadeUp 1s .5s both;
+}
+
+.loaded .description {
+  animation: fadeUp 1s .65s both;
+}
+
+.loaded form {
+  animation: fadeUp 1s .8s both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+  .screen {
+    padding: 20px;
+  }
+
+  .login-card {
+    padding: 38px 25px 28px;
+  }
+
+  h1 {
+    font-size: 47px;
+  }
+
+  .welcome {
+    font-size: 29px;
+  }
+
+  .side-caption {
+    display: none;
+  }
+
+  .copyright {
+    position: absolute;
+    bottom: 12px;
+    right: auto;
+    font-size: 7px;
+  }
+
+  .background {
+    background-position: 55% center;
+  }
+}
+
+@media (max-height: 700px) {
+  .login-card {
+    padding-top: 25px;
+    padding-bottom: 20px;
+  }
+
+  .separator {
+    margin: 18px auto;
+  }
+
+  .description {
+    margin-bottom: 18px;
+  }
+
+  .bottom-text {
+    margin-top: 18px;
+  }
+}
+
+/* RESPETAR PREFERENCIAS DE MOVIMIENTO */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .login-card {
+    opacity: 1;
+    transform: none;
+  }
+}
