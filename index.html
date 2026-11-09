@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#130e0b">
+
+  <title>Carnicería Don Juan | Tradición y Sabor</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- FONDO -->
+  <div class="background"></div>
+  <div class="dark-overlay"></div>
+
+  <!-- EFECTOS AMBIENTALES -->
+  <div class="smoke-layer"></div>
+  <div class="fire-glow"></div>
+
+  <!-- BRASAS -->
+  <div class="embers">
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- PANTALLA PRINCIPAL -->
+  <main class="screen">
+
+    <div class="login-card">
+
+      <!-- LOGO -->
+      <div class="logo">
+        <span>DJ</span>
+      </div>
+
+      <p class="brand-label">CARNICERÍA</p>
+
+      <h1>DON JUAN</h1>
+
+      <div class="ornament">
+        <span></span>
+        <i>✦</i>
+        <span></span>
+      </div>
+
+      <p class="subtitle">
+        EL ARTE DE LA BUENA CARNE
+      </p>
+
+      <div class="separator"></div>
+
+      <p class="welcome">
+        El buen sabor siempre<br>
+        encuentra su camino.
+      </p>
+
+      <p class="description">
+        Déjanos tu correo y recibe nuestras novedades
+        y promociones especiales.
+      </p>
+
+      <!-- FORMULARIO EMAILJS -->
+      <form id="formulario">
+
+        <label for="email">TU CORREO ELECTRÓNICO</label>
+
+        <div class="input-container">
+          <span class="mail-icon">✉</span>
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="nombre@correo.com"
+            autocomplete="email"
+            required
+          >
+        </div>
+
+        <button type="submit" id="btnEnviar">
+          <span>ENTRAR A NUESTRA MESA</span>
+          <span class="arrow">↗</span>
+        </button>
+
+      </form>
+
+      <p id="mensaje" class="message" aria-live="polite"></p>
+
+      <!-- DETALLE INFERIOR -->
+      <div class="bottom-text">
+        <span>CALIDAD</span>
+        <i>✦</i>
+        <span>TRADICIÓN</span>
+        <i>✦</i>
+        <span>SABOR</span>
+      </div>
+
+    </div>
+
+    <!-- DETALLES DECORATIVOS -->
+    <div class="side-caption">
+      <span>01</span>
+      <div></div>
+      <span>TRADICIÓN QUE SE SIENTE</span>
+    </div>
+
+    <div class="copyright">
+      © 2026 CARNICERÍA DON JUAN
+    </div>
+
+  </main>
+
+  <!-- EMAILJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@5/dist/email.min.js"></script>
+  <script src="app.js"></script>
+
+  <!-- MOVIMIENTO DEL FONDO -->
+  <script>
+    const background = document.querySelector(".background");
+
+    if (window.matchMedia("(pointer: fine)").matches) {
+      document.addEventListener("mousemove", (event) => {
+        const x = (event.clientX / window.innerWidth - 0.5) * 2;
+        const y = (event.clientY / window.innerHeight - 0.5) * 2;
+
+        background.style.backgroundPosition =
+          `${50 + x * 1.5}% ${55 + y * 1.5}%`;
+      });
+    }
+
+    // Entrada cinematográfica
+    window.addEventListener("load", () => {
+      document.body.classList.add("loaded");
+    });
+  </script>
+
+</body>
+</html>
